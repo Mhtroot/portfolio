@@ -1,0 +1,290 @@
+export interface ApiResponse {
+  status: number;
+  statusText: string;
+  headers: Record<string, string>;
+  body: unknown;
+}
+
+const commonHeaders = {
+  "Content-Type": "application/json; charset=utf-8",
+  "X-Powered-By": "Express",
+  "X-Developer": "Mohamad Tahmasbi",
+  Server: "mohamad.dev",
+  Date: new Date().toUTCString(),
+};
+
+export const endpoints = [
+  { method: "GET", path: "/about" },
+  { method: "GET", path: "/experience" },
+  { method: "GET", path: "/skills" },
+  { method: "GET", path: "/projects" },
+  { method: "GET", path: "/contact" },
+  { method: "GET", path: "/resume" },
+] as const;
+
+export const responses: Record<string, ApiResponse> = {
+  "/about": {
+    status: 200,
+    statusText: "OK",
+    headers: { ...commonHeaders, "Cache-Control": "public, max-age=86400" },
+    body: {
+      name: "Mohamad Tahmasbi",
+      role: "Backend Developer",
+      location: "Karaj, Iran",
+      summary:
+        "Software Engineer with 3+ years of experience specializing in Backend Development, Telegram Bot Automation, and DevOps. Proficient in building scalable REST APIs, managing relational/NoSQL databases, and integrating AI models into production services.",
+      education: {
+        degree: "B.S. Computer Engineering",
+        university: "Babol Noshirvani University of Technology",
+        period: "Sep 2022 - Present",
+        major: "Software Engineering",
+        minor: "Artificial Intelligence",
+      },
+    },
+  },
+
+  "/experience": {
+    status: 200,
+    statusText: "OK",
+    headers: { ...commonHeaders, "X-Total-Count": "3" },
+    body: [
+      {
+        position: "Backend & Telegram Bot Developer",
+        company: "shayteck.com",
+        period: "Oct 2024 - Present",
+        location: "Remote / Tehran, Iran",
+        highlights: [
+          "Developed backend solutions for 22+ projects using TypeScript, Node.js, Express.js, and Python (FastAPI)",
+          "Integrated OpenAI/Gemini APIs for prompt engineering and automated landing page creation",
+          "Built real-time financial systems using WebSocket for live gold trading charts",
+          "Engineered automated trading signal bot with live chart validation and position management",
+          "Created media streaming bot for Telegram Voice Calls using yt-dl, gramjs-call, and FFmpeg",
+          "Managed Linux server administration, monitoring, deployment, and security",
+        ],
+      },
+      {
+        position: "Backend Developer",
+        company: "Sodev",
+        period: "Mar 2024 - Sep 2024",
+        location: "Babol, Mazandaran, Iran",
+        highlights: [
+          "Contributed to SoService: Docker-based hosting platform for multi-framework applications",
+          "Developed automated static page deployment with dynamic NGINX IP/domain resolution",
+          "Enabled app hosting via source upload or GitHub connection with auto Dockerfile generation",
+          "Managed isolated Docker containers for PostgreSQL, MySQL, MariaDB, MongoDB, and Redis",
+          "Implemented custom domain attachment and HTTPS enablement features",
+        ],
+      },
+      {
+        position: "Programming Instructor (Teaching Assistant)",
+        company: "Babol Noshirvani University of Technology",
+        period: "Jan 2024 - Oct 2024",
+        location: "Babol, Mazandaran, Iran",
+        highlights: [
+          "Taught Object-Oriented Programming (OOP) using Java to undergraduate students",
+          "Instructed on Classes, Inheritance, Encapsulation, Polymorphism, and design principles",
+          "Assisted students with debugging, code reviews, and project guidance",
+        ],
+      },
+    ],
+  },
+
+  "/skills": {
+    status: 200,
+    statusText: "OK",
+    headers: commonHeaders,
+    body: {
+      languages: [
+        "TypeScript",
+        "JavaScript",
+        "Python",
+        "Java",
+        "C#",
+        "C++",
+        "Go",
+        "SQL",
+      ],
+      backend: [
+        "Node.js",
+        "Express.js",
+        "FastAPI",
+        "ASP.NET",
+        ".NET",
+        "Fiber",
+        "Gin",
+        "Prisma ORM",
+      ],
+      databases: [
+        "MySQL",
+        "PostgreSQL",
+        "SQLite",
+        "SQL Server",
+        "MongoDB",
+        "Redis",
+        "MariaDB",
+      ],
+      devops: [
+        "Docker",
+        "NGINX",
+        "Git",
+        "CI/CD",
+        "Linux/Ubuntu Server",
+        "Shell Scripting",
+      ],
+      apis_and_services: [
+        "OpenAI API",
+        "Gemini API",
+        "ChatGPT API",
+        "WebSocket",
+        "REST",
+        "Telegram Bot API (grammY)",
+      ],
+      concepts: [
+        "Clean Architecture",
+        "Microservices",
+        "OOP",
+        "AI Prompt Engineering",
+      ],
+      frontend: ["React", "HTML5", "CSS3"],
+    },
+  },
+
+  "/projects": {
+    status: 200,
+    statusText: "OK",
+    headers: { ...commonHeaders, "X-Total-Count": "5" },
+    body: [
+      {
+        name: "BotAutomation (SaaS Platform)",
+        description:
+          "Multi-tenant Telegram Bot-as-a-Service platform with a JSON-driven scenario engine. Owners create bots via REST API, upload scenario JSONs, and manage bot lifecycle in real-time.",
+        stack: [
+          "TypeScript",
+          "Express.js",
+          "grammY",
+          "Prisma",
+          "MySQL",
+          "Redis",
+          "Docker",
+        ],
+        features: [
+          "JSON state-machine scenario engine",
+          "Hot-reloadable bot instances",
+          "OTP-based auth with Redis",
+          "Webhook + long-polling dual mode",
+        ],
+        github: "github.com/Mhtrobot/BotAutomation",
+      },
+      {
+        name: "SoService (Docker Hosting Platform)",
+        description:
+          "Modern Docker-based hosting platform enabling users to deploy multi-framework applications via source upload or GitHub connection with automatic Dockerfile generation.",
+        stack: [
+          "TypeScript",
+          "Node.js",
+          "Docker",
+          "NGINX",
+          "PostgreSQL",
+          "WebSocket",
+        ],
+        features: [
+          "Automated NGINX subdomain resolution",
+          "GitHub CI integration",
+          "Isolated database containers",
+          "Custom domain + HTTPS",
+        ],
+      },
+      {
+        name: "Trading Signal Bot",
+        description:
+          "Automated trading signal bot that validates signals against live charts, opens positions, and notifies users via Telegram in real-time.",
+        stack: [
+          "TypeScript",
+          "Node.js",
+          "WebSocket",
+          "grammY",
+          "Prisma",
+        ],
+        features: [
+          "Live chart validation",
+          "Automated position management",
+          "Real-time Telegram notifications",
+        ],
+      },
+      {
+        name: "Financial Dashboard System",
+        description:
+          "Real-time financial system using WebSocket to track live charts, manage gold trading volumes, and balance user accounts.",
+        stack: [
+          "TypeScript",
+          "Express.js",
+          "WebSocket",
+          "MySQL",
+          "Prisma",
+        ],
+        features: [
+          "Live gold price charts",
+          "Volume management",
+          "User account balancing",
+        ],
+      },
+      {
+        name: "Media Streaming Bot",
+        description:
+          "Telegram bot for streaming media in Voice Calls, supporting YouTube downloads and audio conversion.",
+        stack: ["TypeScript", "gramjs-call", "yt-dl", "FFmpeg", "grammY"],
+        features: [
+          "YouTube audio extraction",
+          "Telegram Voice Call streaming",
+          "FFmpeg audio processing",
+        ],
+      },
+    ],
+  },
+
+  "/contact": {
+    status: 200,
+    statusText: "OK",
+    headers: commonHeaders,
+    body: {
+      email: "mmdthsi@gmail.com",
+      phone: "+98-9010140447",
+      github: "https://github.com/Mhtrobot",
+      message:
+        "Feel free to reach out via email or check out my work on GitHub!",
+    },
+  },
+
+  "/resume": {
+    status: 200,
+    statusText: "OK",
+    headers: {
+      ...commonHeaders,
+      "Content-Type": "application/pdf",
+      "Content-Disposition":
+        'attachment; filename="Mohamad_Tahmasbi_Resume.pdf"',
+    },
+    body: {
+      status: 200,
+      message: "Downloading resume...",
+      file: "Mohamad_Tahmasbi_Resume.pdf",
+      size: "~1 page",
+    },
+  },
+};
+
+export function get404(path: string): ApiResponse {
+  return {
+    status: 404,
+    statusText: "Not Found",
+    headers: {
+      ...commonHeaders,
+      "Cache-Control": "no-store",
+    },
+    body: {
+      error: "Not Found",
+      message: `Cannot GET /api${path}`,
+      hint: "Try one of: /about, /experience, /skills, /projects, /contact, /resume",
+    },
+  };
+}
