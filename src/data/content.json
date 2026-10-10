@@ -147,7 +147,7 @@
           "OTP-based auth with Redis",
           "Webhook + long-polling dual mode"
         ],
-        "github": "github.com/Mhtrobot/BotAutomation"
+        "github": "github.com/Mhtroot/BotAutomation"
       },
       {
         "name": "SoService (Docker Hosting Platform)",
