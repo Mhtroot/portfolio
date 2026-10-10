@@ -5,6 +5,7 @@ import {
   responses,
   get404,
   endpoints,
+  site,
   type ApiResponse,
 } from "@/data/responses";
 
@@ -173,8 +174,8 @@ export default function Home() {
     // If it's /resume, trigger download
     if (normalized === "/resume") {
       const link = document.createElement("a");
-      link.href = "/Mohamad_Tahmasbi_Resume.pdf";
-      link.download = "Mohamad_Tahmasbi_Resume.pdf";
+      link.href = `/${site.resumeFile}`;
+      link.download = site.resumeFile;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -199,7 +200,7 @@ export default function Home() {
   useEffect(() => {
     if (hasAutoPlayed) return;
 
-    const targetText = "/about";
+    const targetText = endpoints[0].path;
     let charIndex = 0;
     setIsTyping(true);
 
@@ -242,8 +243,8 @@ export default function Home() {
     <main className="min-h-screen bg-[#0d1117] text-gray-200 flex flex-col">
       {/* ─── Resume Download Shortcut ─── */}
       <a
-        href="/Mohamad_Tahmasbi_Resume.pdf"
-        download="Mohamad_Tahmasbi_Resume.pdf"
+        href={`/${site.resumeFile}`}
+        download={site.resumeFile}
         className="fixed top-4 right-4 z-50 flex items-center gap-2 px-3 py-2 bg-[#161b22] border border-gray-700/50 rounded-lg hover:border-emerald-400/50 hover:shadow-[0_0_15px_rgba(52,211,153,0.1)] transition-all duration-300 group"
         title="Download Resume"
       >
@@ -275,12 +276,10 @@ export default function Home() {
         {/* Title */}
         <div className="mb-8 text-center">
           <h1 className="text-2xl sm:text-3xl font-mono font-bold text-gray-100 mb-2">
-            <span className="text-emerald-400">{">"}</span> mohamad.dev
+            <span className="text-emerald-400">{">"}</span> {site.domain}
             <span className="text-emerald-400">/api</span>
           </h1>
-          <p className="text-sm text-gray-500 font-mono">
-            Backend Developer &bull; API Explorer
-          </p>
+          <p className="text-sm text-gray-500 font-mono">{site.tagline}</p>
         </div>
 
         {/* Search Bar */}
@@ -290,7 +289,7 @@ export default function Home() {
               GET
             </span>
             <span className="text-gray-500 font-mono text-sm mr-1 hidden sm:inline shrink-0">
-              https://mohamad.dev/api
+              https://{site.domain}/api
             </span>
             <span className="text-gray-500 font-mono text-sm mr-1 sm:hidden shrink-0">
               /api
@@ -300,7 +299,7 @@ export default function Home() {
               type="text"
               value={inputValue}
               onChange={(e) => !isTyping && setInputValue(e.target.value)}
-              placeholder="/about"
+              placeholder={endpoints[0].path}
               className="flex-1 bg-transparent font-mono text-sm text-gray-100 outline-none placeholder-gray-600 min-w-0"
               spellCheck={false}
               autoComplete="off"
@@ -429,11 +428,11 @@ export default function Home() {
       {/* ─── Footer ─── */}
       <footer className="mt-auto py-6 text-center">
         <p className="font-mono text-xs text-gray-600">
-          <span className="text-gray-700">// </span>
-          &copy; {new Date().getFullYear()} Mohamad Tahmasbi
+          <span className="text-gray-700">{"// "}</span>
+          &copy; {new Date().getFullYear()} {site.name}
           <span className="text-gray-700"> &bull; </span>
           <a
-            href="https://github.com/Mhtrobot"
+            href={site.github}
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 hover:text-emerald-400 transition-colors"
